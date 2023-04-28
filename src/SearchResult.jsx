@@ -2,6 +2,7 @@ function SearchResult({ createdAt, author, title, url, points, numComments }) {
     const now = new Date();
     const createdAtDate = new Date(createdAt);
     const yearsAgo = now.getFullYear() - createdAtDate.getFullYear();
+
     return (
         <div className="result">
             <h2><a href={url}>{title}</a></h2>
