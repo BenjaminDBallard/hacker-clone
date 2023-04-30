@@ -9,7 +9,7 @@ const useFetch = () => {
     const fetchData = async () => {
       try {
         const { data: response } = await axios.get('http://hn.algolia.com/api/v1/search_by_date?tags=story');
-        setData(response.hits);
+        setData(response);
       } catch (error) {
         console.error(error)
       }
