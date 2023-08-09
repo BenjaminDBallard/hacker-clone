@@ -31,10 +31,10 @@ const NavBar = styled.nav`
   width: 100vw;
   display: flex;
   justify-content: center;
-  */
-  /* justify-content: space-between; */
   h2 {
-    /* margin: 0 150px; */
+    @media screen and (max-width: 900px) {
+      font-size: 15px;
+    }
   }
 `;
 
@@ -46,10 +46,15 @@ const Heading = styled.div`
 
 const Container = styled.div`
   width: 80%;
+  max-width: 1720px;
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 900px) {
+    width: 100%;
+    margin: 0 10px;
+  }
 `;
 
 const Logo = styled.img`
@@ -66,5 +71,8 @@ const SearchBar = styled.input`
   color: #222222;
   ::placeholder {
     color: #222222;
+  }
+  @media screen and (max-width: 500px) {
+    width: 200px;
   }
 `;

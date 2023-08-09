@@ -42,7 +42,11 @@ const Cont = styled.div`
   align-items: center;
 `;
 const Box = styled.div`
+  max-width: 1720px;
   width: 80%;
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
 `;
 const Loading = styled.div`
   width: 100%;
