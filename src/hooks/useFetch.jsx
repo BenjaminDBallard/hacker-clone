@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const useFetch = () => {
   const [data, setData] = useState({});
@@ -8,10 +8,12 @@ const useFetch = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: response } = await axios.get('http://hn.algolia.com/api/v1/search_by_date?tags=story');
+        const { data: response } = await axios.get(
+          "http://hn.algolia.com/api/v1/search_by_date?tags=story"
+        );
         setData(response);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
       setLoading(false);
     };
