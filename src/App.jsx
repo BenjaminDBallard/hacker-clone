@@ -1,21 +1,32 @@
 import { useState } from "react";
 import ListArticles from "./components/ListArticles";
 import styled from "styled-components";
-import useFetch from "./hooks/useFetch";
+import { bestFetch, newFetch } from "./hooks/useFetch";
 import "./App.css";
 import Navbar from "./components/NavBar";
 
 function App() {
-  const { data, loading } = useFetch();
+  const { bestData, loading } = bestFetch();
+  const { newData, newLoading } = newFetch();
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <Cont>
       <Navbar setSearchTerm={setSearchTerm} />
-      {loading && <div>Loading</div>}
-      {!loading && (
+      {loading && newLoading && (
+        <Loading>
+          <div>
+            <h3>loading...</h3>
+          </div>
+        </Loading>
+      )}
+      {!loading && !newLoading && (
         <Box>
-          <ListArticles searchTerm={searchTerm} data={data} />
+          <ListArticles
+            searchTerm={searchTerm}
+            bestData={bestData}
+            newData={newData}
+          />
         </Box>
       )}
     </Cont>
@@ -32,4 +43,24 @@ const Cont = styled.div`
 `;
 const Box = styled.div`
   width: 80%;
+`;
+const Loading = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+    width: 200px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border: #cccccc 1px solid;
+    border-radius: 5px;
+  }
+  h3 {
+    color: #0179d2;
+  }
 `;

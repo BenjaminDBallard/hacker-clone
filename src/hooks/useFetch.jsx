@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const useFetch = () => {
-  const [data, setData] = useState({});
+const bestFetch = () => {
+  const [bestData, setBestData] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data: response } = await axios.get(
-          "http://hn.algolia.com/api/v1/search_by_date?tags=story"
+          "https://hn.algolia.com/api/v1/search?tags=front_page"
         );
-        setData(response);
+        setBestData(response);
       } catch (error) {
         console.error(error);
       }
@@ -22,9 +22,35 @@ const useFetch = () => {
   }, []);
 
   return {
-    data,
+    bestData,
     loading,
   };
 };
 
-export default useFetch;
+const newFetch = () => {
+  const [newData, setNewData] = useState({});
+  const [newLoading, setNewLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data: response } = await axios.get(
+          "https://hn.algolia.com/api/v1/search_by_date?tags=story"
+        );
+        setNewData(response);
+      } catch (error) {
+        console.error(error);
+      }
+      setNewLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  return {
+    newData,
+    newLoading,
+  };
+};
+
+export { bestFetch, newFetch };

@@ -1,10 +1,16 @@
 import styled from "styled-components";
+import LogoImg from "../assets/hackerCloneLogo.png";
+
 export default function Navbar(props) {
   const setSearchTerm = props.setSearchTerm;
   return (
     <NavBar className="navbar">
       <Container>
-        <h2 className="navbar-header">Hacker News</h2>
+        <Heading>
+          <Logo src={LogoImg} />
+          <h2 className="navbar-header">Hacker Clone</h2>
+        </Heading>
+
         <SearchBar
           type="text"
           placeholder="Search..."
@@ -32,12 +38,22 @@ const NavBar = styled.nav`
   }
 `;
 
+const Heading = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
 const Container = styled.div`
   width: 80%;
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+const Logo = styled.img`
+  height: 30px;
 `;
 
 const SearchBar = styled.input`

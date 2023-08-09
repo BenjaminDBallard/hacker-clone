@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
@@ -14,12 +14,16 @@ function SearchResult({ createdAt, author, title, url, points, numComments }) {
   const yearsAgo = now.getFullYear() - createdAtDate.getFullYear();
   const monthsAgo = now.getMonth() - createdAtDate.getMonth();
   const daysAgo = now.getDay() - createdAtDate.getDay();
+  const hoursAgo = now.getHours() - createdAtDate.getHours();
   const minutesAgo = now.getMinutes() - createdAtDate.getMinutes();
   const secondsAgo = now.getSeconds() - createdAtDate.getSeconds();
-  const [totalPoints, setTotalPoints] = useState(points);
+  const [totalPoints, setTotalPoints] = useState();
   let count = points;
 
-  console.log(createdAtDate);
+  useEffect(() => {
+    let postPoints = points;
+    setTotalPoints(postPoints);
+  }, [points]);
 
   let post = 0;
   let cont = "";
@@ -28,21 +32,41 @@ function SearchResult({ createdAt, author, title, url, points, numComments }) {
     if (yearsAgo === 0) {
       if (monthsAgo === 0) {
         if (daysAgo === 0) {
-          if (minutesAgo === 0) {
-            post = secondsAgo;
-            cont = "seconds ago";
+          if (hoursAgo === 0) {
+            if (minutesAgo === 0) {
+              post = secondsAgo;
+              cont = "seconds ago";
+            } else if (minutesAgo === 1) {
+              post = minutesAgo;
+              cont = "minute ago";
+            } else {
+              post = minutesAgo;
+              cont = "minutes ago";
+            }
+          } else if (hoursAgo === 1) {
+            post = hoursAgo;
+            cont = "hour ago";
           } else {
-            post = minutesAgo;
-            cont = "minutes ago";
+            post = hoursAgo;
+            cont = "hours ago";
           }
+        } else if (daysAgo === 1) {
+          post = daysAgo;
+          cont = "day ago";
         } else {
           post = daysAgo;
           cont = "days ago";
         }
+      } else if (monthsAgo === 1) {
+        post = monthsAgo;
+        cont = "month ago";
       } else {
         post = monthsAgo;
         cont = "months ago";
       }
+    } else if (yearsAgo === 1) {
+      post = yearsAgo;
+      cont = "year ago";
     } else {
       post = yearsAgo;
       cont = "years ago";
@@ -51,7 +75,7 @@ function SearchResult({ createdAt, author, title, url, points, numComments }) {
   }
 
   const time = postedAt();
-  console.log(time);
+  // console.log(time);
 
   const handleLike = () => {
     count = points;
